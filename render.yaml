@@ -4,10 +4,17 @@ services:
     name: vuejs-aidd-todo-app
     runtime: node
     plan: free
+    region: oregon  # Choose: oregon, frankfurt, singapore, ohio
+    branch: main    # Auto-deploy from main branch
     buildCommand: npm install --include=dev && npm run build
     startCommand: NODE_ENV=production npm run start
     healthCheckPath: /api/health
+    autoDeploy: true  # Automatically deploy on push to main
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: NODE_OPTIONS
         value: --max-old-space-size=2048
+      - key: PORT
+        value: 10000  # Render's default port
 

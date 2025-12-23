@@ -565,15 +565,6 @@ const dismissError = () => {
               <div v-if="ingredients.length > 0 || recipes.length > 0" class="mb-6 sm:mb-8">
                 <div class="flex flex-col gap-2">
                   <div class="flex gap-2">
-                    <!-- New Button -->
-                    <button
-                      class="px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg sm:rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm border text-gray-700 bg-white/70 border-gray-300 hover:bg-white hover:border-gray-400 hover:text-gray-900 hover:scale-105 whitespace-nowrap"
-                      @click="handleNewRecipe"
-                    >
-                      <Icon icon="mdi:plus" class="text-base sm:text-xl flex-shrink-0" />
-                      <span>New</span>
-                    </button>
-
                     <!-- Save Recipe Button - Secondary style when no changes -->
                     <button
                       :class="[
@@ -595,6 +586,7 @@ const dismissError = () => {
                     </button>
 
                     <!-- Saved Recipes Dropdown -->
+                    <div class="relative recipes-dropdown-container">
                     <div class="relative recipes-dropdown-container">
                       <button
                         class="px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg sm:rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm border text-gray-700 bg-white/70 border-gray-300 hover:bg-white hover:border-gray-400 hover:text-gray-900 hover:scale-105 whitespace-nowrap"
@@ -650,6 +642,15 @@ const dismissError = () => {
                         </div>
                       </Transition>
                     </div>
+
+                    <!-- New Button -->
+                    <button
+                      class="px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg sm:rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm border text-gray-700 bg-white/70 border-gray-300 hover:bg-white hover:border-gray-400 hover:text-gray-900 hover:scale-105 whitespace-nowrap"
+                      @click="handleNewRecipe"
+                    >
+                      <Icon icon="mdi:plus" class="text-base sm:text-xl flex-shrink-0" />
+                      <span>New</span>
+                    </button>
                   </div>
 
                   <!-- Warning messages - Only show after user interaction -->

@@ -19,6 +19,9 @@ const backgroundImages = [
   "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=1920&q=80", // Bright chef's kitchen workspace
   "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&q=80", // Fresh vegetables and bright countertop
   "https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=1920&q=80", // Sunlit kitchen with wood accents
+  "https://images.unsplash.com/photo-1505935428862-770b6f24f629?w=1920&q=80", // Minimal white plate with fresh ingredients
+  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&q=80", // Simple dish on white background
+  "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1920&q=80", // Minimal salad ingredients on white surface
 ];
 
 const ingredients = ref<Ingredient[]>([]);

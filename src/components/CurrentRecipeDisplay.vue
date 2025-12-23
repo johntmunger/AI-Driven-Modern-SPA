@@ -5,6 +5,7 @@ import { Icon } from "@iconify/vue";
 interface Props {
   recipeName: string;
   recipeId: number | null;
+  recipeUpdatedAt?: string;
 }
 
 defineProps<Props>();
@@ -52,6 +53,25 @@ const handleKeydown = (event: any) => {
     cancelEdit();
   }
 };
+
+// Format timestamp for display
+const formatDate = (dateString?: string) => {
+  if (!dateString) return '';
+  
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  
+  if (diffMins < 1) return 'just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+};
 </script>
 
 <template>
@@ -67,7 +87,7 @@ const handleKeydown = (event: any) => {
         @keydown="handleKeydown"
       />
     </div>
-    <div v-else class="flex-1 flex items-center gap-2">
+    <div v-else class="flex-1 flex items-center gap-2 flex-wrap">
       <Icon icon="mdi:chef-hat" class="text-2xl text-green-700 shrink-0" />
       <h2
         class="text-lg sm:text-xl font-semibold"
@@ -75,12 +95,18 @@ const handleKeydown = (event: any) => {
       >
         {{ recipeName }}
       </h2>
+      <span
+        v-if="recipeId && recipeUpdatedAt"
+        class="text-xs text-gray-500 font-normal"
+      >
+        ({{ formatDate(recipeUpdatedAt) }})
+      </span>
     </div>
 
-    <!-- Action Buttons - Smaller secondary style -->
+    <!-- Action Buttons - Button style with borders -->
     <div class="flex items-center gap-1 transition-opacity duration-300">
       <button
-        class="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-all duration-200"
+        class="p-1.5 text-gray-600 hover:text-blue-600 bg-white hover:bg-blue-50 rounded border border-gray-300 hover:border-blue-400 transition-all duration-200 shadow-sm"
         aria-label="Edit recipe name"
         title="Edit recipe name"
         @click="startEdit(recipeName)"
@@ -88,7 +114,7 @@ const handleKeydown = (event: any) => {
         <Icon icon="mdi:pencil" class="text-base" />
       </button>
       <button
-        class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-all duration-200"
+        class="p-1.5 text-gray-600 hover:text-red-600 bg-white hover:bg-red-50 rounded border border-gray-300 hover:border-red-400 transition-all duration-200 shadow-sm"
         aria-label="Delete recipe"
         title="Delete recipe"
         @click="emit('deleteRecipe')"

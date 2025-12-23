@@ -670,6 +670,7 @@ const dismissError = () => {
                 v-if="ingredients.length > 0 && (currentRecipe || matchingRecipe)"
                 :recipe-name="currentRecipeName"
                 :recipe-id="currentRecipeId"
+                :recipe-updated-at="currentRecipe?.updated_at || matchingRecipe?.updated_at"
                 @update-name="updateRecipeName"
                 @delete-recipe="confirmDeleteRecipe"
               />

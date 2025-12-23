@@ -104,14 +104,14 @@ onBeforeUnmount(() => {
       {{ ingredient.name }}
     </span>
 
-    <!-- Action Buttons - Smaller secondary style, toggle on mobile click -->
+    <!-- Action Buttons - Button style with borders, toggle on mobile click -->
     <div
       class="flex items-center gap-1 transition-opacity duration-300"
       :class="showActions ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'"
     >
       <button
         v-if="!isEditing"
-        class="flex-shrink-0 p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-all duration-200"
+        class="flex-shrink-0 p-1.5 text-gray-600 hover:text-blue-600 bg-white hover:bg-blue-50 rounded border border-gray-300 hover:border-blue-400 transition-all duration-200 shadow-sm"
         aria-label="Edit ingredient"
         title="Edit"
         @click.stop="startEdit(ingredient.name)"
@@ -119,7 +119,7 @@ onBeforeUnmount(() => {
         <Icon icon="mdi:pencil" class="text-base" />
       </button>
       <button
-        class="flex-shrink-0 p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-all duration-200"
+        class="flex-shrink-0 p-1.5 text-gray-600 hover:text-red-600 bg-white hover:bg-red-50 rounded border border-gray-300 hover:border-red-400 transition-all duration-200 shadow-sm"
         aria-label="Delete ingredient"
         title="Delete"
         @click.stop="emit('delete', ingredient.id)"

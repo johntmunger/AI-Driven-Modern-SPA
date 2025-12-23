@@ -16,6 +16,9 @@ const backgroundImages = [
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80", // Bright white kitchen counter
   "https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=1920&q=80", // Fresh produce and bright kitchen
   "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80", // Bright food prep area with ingredients
+  "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=1920&q=80", // Bright chef's kitchen workspace
+  "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&q=80", // Fresh vegetables and bright countertop
+  "https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=1920&q=80", // Sunlit kitchen with wood accents
 ];
 
 const ingredients = ref<Ingredient[]>([]);
@@ -39,8 +42,8 @@ onMounted(async () => {
 });
 
 // Close dropdown when clicking outside
-const handleClickOutside = (event: MouseEvent) => {
-  const target = event.target as HTMLElement;
+const handleClickOutside = (event: any) => {
+  const target = event.target;
   // Check if click is outside the dropdown button and menu
   if (!target.closest(".recipes-dropdown-container")) {
     showRecipesDropdown.value = false;
@@ -78,8 +81,12 @@ const loadRecipes = async () => {
 const addIngredient = async (name: string) => {
   hasUserInteracted.value = true;
   error.value = null;
+
+  // Capitalize first letter of first word
+  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
   try {
-    const newIngredient = await api.createIngredient(name);
+    const newIngredient = await api.createIngredient(capitalizedName);
     ingredients.value.unshift(newIngredient);
   } catch (err) {
     error.value = err instanceof api.ApiError ? err.message : "Failed to add ingredient";
@@ -310,12 +317,13 @@ const dismissError = () => {
       ></div>
       <!-- Gradient overlay for header readability only - fades to transparent -->
       <div
-        class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/20 to-transparent"
+        class="absolute inset-0 bg-gradient-to-b from-white via-white/30 to-transparent"
         style="
           background: linear-gradient(
             to bottom,
-            rgba(255, 255, 255, 0.85) 0%,
-            rgba(255, 255, 255, 0.4) 20%,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.75) 10%,
+            rgba(255, 255, 255, 0.4) 25%,
             rgba(255, 255, 255, 0) 50%
           );
         "

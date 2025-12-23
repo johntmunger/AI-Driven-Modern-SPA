@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount } from "vue";
 import { Icon } from "@iconify/vue";
 
 interface Props {
@@ -6,12 +7,27 @@ interface Props {
   recipeName: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   close: [];
   confirm: [];
 }>();
+
+// Handle Escape key
+const handleEscape = (event: any) => {
+  if (event.key === "Escape" && props.isOpen) {
+    emit("close");
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", handleEscape);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", handleEscape);
+});
 </script>
 
 <template>

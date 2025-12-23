@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import { Icon } from "@iconify/vue";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   ingredients: string[];
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   close: [];
@@ -27,6 +27,21 @@ const handleClose = () => {
   recipeName.value = "";
   emit("close");
 };
+
+// Handle Escape key
+const handleEscape = (event: any) => {
+  if (event.key === "Escape" && props.isOpen) {
+    handleClose();
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", handleEscape);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", handleEscape);
+});
 </script>
 
 <template>

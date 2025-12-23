@@ -40,6 +40,7 @@ onMounted(() => {
           v-model="newIngredient"
           type="text"
           placeholder="Add an ingredient..."
+          maxlength="25"
           class="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-900 bg-white border border-gray-300 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 placeholder-gray-400 text-base shadow-md hover:shadow-lg hover:border-green-400"
         />
       </div>

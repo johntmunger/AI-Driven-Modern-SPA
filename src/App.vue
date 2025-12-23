@@ -127,7 +127,7 @@ const updateIngredient = async (id: number, name: string) => {
 
 const deleteIngredient = async (id: number) => {
   hasUserInteracted.value = true;
-  hasUnsavedChanges.value = true;
+  // Don't mark as unsaved for deletes - only add triggers save button
   const ingredientIndex = ingredients.value.findIndex((i) => i.id === id);
   if (ingredientIndex === -1) return;
 

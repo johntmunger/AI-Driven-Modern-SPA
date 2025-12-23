@@ -14,7 +14,6 @@ import * as api from "./services/api";
 const backgroundImages = [
   "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1920&q=80", // Bright modern kitchen with natural light
   "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1920&q=80", // Light airy restaurant interior
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80", // Bright white kitchen counter
   "https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=1920&q=80", // Fresh produce and bright kitchen
   "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80", // Bright food prep area with ingredients
   "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=1920&q=80", // Bright chef's kitchen workspace

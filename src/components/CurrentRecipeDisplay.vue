@@ -68,10 +68,10 @@ const handleKeydown = (event: KeyboardEvent) => {
       />
     </div>
     <div v-else class="flex-1 flex items-center gap-2">
-      <Icon icon="mdi:chef-hat" class="text-2xl text-green-600 flex-shrink-0" />
+      <Icon icon="mdi:chef-hat" class="text-2xl text-green-700 flex-shrink-0" />
       <h2
         class="text-lg sm:text-xl font-semibold"
-        :class="recipeId ? 'text-green-600' : 'text-gray-500'"
+        :class="recipeId ? 'text-green-700' : 'text-gray-500'"
       >
         {{ recipeName }}
       </h2>
@@ -98,4 +98,3 @@ const handleKeydown = (event: KeyboardEvent) => {
     </div>
   </div>
 </template>
-

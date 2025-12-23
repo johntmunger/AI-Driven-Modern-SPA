@@ -78,6 +78,17 @@ const loadRecipes = async () => {
 const addIngredient = async (name: string) => {
   hasUserInteracted.value = true;
   error.value = null;
+  
+  // Check for duplicate ingredient name (case-insensitive)
+  const isDuplicate = ingredients.value.some(
+    ing => ing.name.toLowerCase().trim() === name.toLowerCase().trim()
+  );
+  
+  if (isDuplicate) {
+    error.value = "This ingredient is already in your list";
+    return;
+  }
+  
   try {
     const newIngredient = await api.createIngredient(name);
     ingredients.value.unshift(newIngredient);
@@ -92,6 +103,16 @@ const updateIngredient = async (id: number, name: string) => {
   hasUserInteracted.value = true;
   const ingredient = ingredients.value.find((i) => i.id === id);
   if (!ingredient) return;
+
+  // Check for duplicate ingredient name (excluding current item)
+  const isDuplicate = ingredients.value.some(
+    ing => ing.id !== id && ing.name.toLowerCase().trim() === name.toLowerCase().trim()
+  );
+  
+  if (isDuplicate) {
+    error.value = "This ingredient name already exists in your list";
+    return;
+  }
 
   const previousName = ingredient.name;
   ingredient.name = name;

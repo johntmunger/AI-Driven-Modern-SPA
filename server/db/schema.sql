@@ -28,14 +28,3 @@ CREATE INDEX IF NOT EXISTS idx_ingredients_created_at ON ingredients(created_at)
 CREATE INDEX IF NOT EXISTS idx_recipes_created_at ON recipes(created_at);
 CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_recipe_id ON recipe_ingredients(recipe_id);
 
--- Insert 6 starter ingredients (only if ingredients table is empty)
-INSERT INTO ingredients (name)
-SELECT * FROM (
-  SELECT 'Tomatoes' AS name UNION ALL
-  SELECT 'Garlic' UNION ALL
-  SELECT 'Olive Oil' UNION ALL
-  SELECT 'Basil' UNION ALL
-  SELECT 'Onions' UNION ALL
-  SELECT 'Chicken Breast'
-) WHERE NOT EXISTS (SELECT 1 FROM ingredients LIMIT 1);
-

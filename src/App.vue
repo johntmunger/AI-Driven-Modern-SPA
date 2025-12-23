@@ -255,20 +255,7 @@ const currentRecipeId = computed(() => {
   return null;
 });
 
-// Default starter ingredients (should not be saved as recipe)
-const defaultIngredients = ['Tomatoes', 'Garlic', 'Olive Oil', 'Basil', 'Onions', 'Chicken Breast'];
-
-// Check if current ingredients are the default set
-const isDefaultIngredients = computed(() => {
-  if (ingredients.value.length === 0) return false;
-  
-  const currentNames = ingredients.value.map(i => i.name.toLowerCase().trim()).sort();
-  const defaultNames = defaultIngredients.map(i => i.toLowerCase().trim()).sort();
-  
-  if (currentNames.length !== defaultNames.length) return false;
-  
-  return currentNames.every((name, index) => name === defaultNames[index]);
-});
+// No default ingredients anymore - always allow saving
 
 // Check if current ingredients match any existing recipe
 const isDuplicateRecipe = computed(() => {
@@ -285,9 +272,9 @@ const isDuplicateRecipe = computed(() => {
   });
 });
 
-// Disable save button if default ingredients or duplicate
+// Disable save button only if duplicate
 const canSaveRecipe = computed(() => {
-  return ingredientCount.value > 0 && !isDefaultIngredients.value && !isDuplicateRecipe.value;
+  return ingredientCount.value > 0 && !isDuplicateRecipe.value;
 });
 
 // Watch for matching recipe and set it as current
@@ -435,7 +422,7 @@ const dismissError = () => {
                     <button
                       class="px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg sm:rounded-xl transition-all duration-300 font-semibold flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm border bg-gradient-to-r from-green-600 to-emerald-600 text-white border-green-500 hover:from-green-700 hover:to-emerald-700 hover:scale-105 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                       :disabled="!canSaveRecipe"
-                      :title="isDefaultIngredients ? 'Add or edit ingredients to save a recipe' : isDuplicateRecipe ? 'Recipe with these ingredients already exists' : 'Save current ingredients as a recipe'"
+                      :title="isDuplicateRecipe ? 'Recipe with these ingredients already exists' : 'Save current ingredients as a recipe'"
                       @click="openSaveModal"
                     >
                       <Icon icon="mdi:content-save" class="text-base sm:text-xl flex-shrink-0" />
@@ -493,11 +480,7 @@ const dismissError = () => {
                   </div>
                 
                   <!-- Warning messages - Only show after user interaction -->
-                  <div v-if="hasUserInteracted && isDefaultIngredients" class="flex items-center gap-2 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg">
-                    <Icon icon="mdi:information" class="text-blue-600 text-base flex-shrink-0" />
-                    <span class="text-xs text-blue-700">Add or edit ingredients to save a new recipe</span>
-                  </div>
-                  <div v-else-if="hasUserInteracted && isDuplicateRecipe" class="flex items-center gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
+                  <div v-if="hasUserInteracted && isDuplicateRecipe" class="flex items-center gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
                     <Icon icon="mdi:information" class="text-amber-600 text-base flex-shrink-0" />
                     <span class="text-xs text-amber-700">A recipe with these ingredients already exists</span>
                   </div>

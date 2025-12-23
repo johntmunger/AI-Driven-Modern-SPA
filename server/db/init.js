@@ -6,7 +6,19 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DB_PATH = path.join(__dirname, 'recipes.db');
+// Use persistent disk path in production (Render), local path in development
+const DB_DIR = process.env.NODE_ENV === 'production' 
+  ? '/opt/render/project/src/server/db'
+  : __dirname;
+
+// Ensure directory exists (for persistent disk)
+if (process.env.NODE_ENV === 'production') {
+  if (!fs.existsSync(DB_DIR)) {
+    fs.mkdirSync(DB_DIR, { recursive: true });
+  }
+}
+
+const DB_PATH = path.join(DB_DIR, 'recipes.db');
 const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
 
 let db = null;

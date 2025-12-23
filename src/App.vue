@@ -4,7 +4,6 @@ import type { Ingredient, Recipe } from "./types/ingredient";
 import { Icon } from "@iconify/vue";
 import IngredientInput from "./components/IngredientInput.vue";
 import IngredientList from "./components/IngredientList.vue";
-import RecipeActions from "./components/RecipeActions.vue";
 import SaveRecipeModal from "./components/SaveRecipeModal.vue";
 import CurrentRecipeDisplay from "./components/CurrentRecipeDisplay.vue";
 import DeleteConfirmModal from "./components/DeleteConfirmModal.vue";

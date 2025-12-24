@@ -35,9 +35,21 @@ const hasUnsavedChanges = ref(false);
 // Select random background on mount
 onMounted(async () => {
   currentBackground.value = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-  await Promise.all([loadIngredients(), loadRecipes()]);
 
-  // Start with empty state - users can load recipes from dropdown if needed
+  // Load recipes first
+  await loadRecipes();
+
+  // Load ingredients to check if any exist
+  await loadIngredients();
+
+  // Always clear ingredients on app load to ensure fresh start
+  if (ingredients.value.length > 0) {
+    console.log("Clearing leftover ingredients from previous session...");
+    for (const ingredient of ingredients.value) {
+      await api.deleteIngredient(ingredient.id);
+    }
+    ingredients.value = [];
+  }
 
   // Close dropdown when clicking outside
   document.addEventListener("click", handleClickOutside);

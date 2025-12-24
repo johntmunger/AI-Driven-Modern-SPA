@@ -6,8 +6,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const __dirname = path.dirname(__filename);
-
 // Schema always in code directory
 const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
 

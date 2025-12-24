@@ -112,7 +112,6 @@ const addIngredient = async (name: string) => {
 
 const updateIngredient = async (id: number, name: string) => {
   hasUserInteracted.value = true;
-  // Don't mark as unsaved for edits - only add/delete trigger save button
   const ingredient = ingredients.value.find((i) => i.id === id);
   if (!ingredient) return;
 
@@ -122,6 +121,18 @@ const updateIngredient = async (id: number, name: string) => {
   error.value = null;
   try {
     await api.updateIngredient(id, name);
+
+    // If we're viewing a loaded recipe, update the recipe's ingredient list
+    if (currentRecipe.value) {
+      const updatedIngredients = ingredients.value.map((i) => i.name);
+      await api.updateRecipe(currentRecipe.value.id, currentRecipe.value.name, updatedIngredients);
+
+      // Update the recipe in our local list
+      const recipeIndex = recipes.value.findIndex((r) => r.id === currentRecipe.value!.id);
+      if (recipeIndex !== -1) {
+        recipes.value[recipeIndex].ingredients = updatedIngredients;
+      }
+    }
   } catch (err) {
     ingredient.name = previousName;
     error.value = err instanceof api.ApiError ? err.message : "Failed to update ingredient";
@@ -131,7 +142,6 @@ const updateIngredient = async (id: number, name: string) => {
 
 const deleteIngredient = async (id: number) => {
   hasUserInteracted.value = true;
-  // Don't mark as unsaved for deletes - only add triggers save button
   const ingredientIndex = ingredients.value.findIndex((i) => i.id === id);
   if (ingredientIndex === -1) return;
 
@@ -141,6 +151,18 @@ const deleteIngredient = async (id: number) => {
   error.value = null;
   try {
     await api.deleteIngredient(id);
+
+    // If we're viewing a loaded recipe, update the recipe's ingredient list
+    if (currentRecipe.value) {
+      const updatedIngredients = ingredients.value.map((i) => i.name);
+      await api.updateRecipe(currentRecipe.value.id, currentRecipe.value.name, updatedIngredients);
+
+      // Update the recipe in our local list
+      const recipeIndex = recipes.value.findIndex((r) => r.id === currentRecipe.value!.id);
+      if (recipeIndex !== -1) {
+        recipes.value[recipeIndex].ingredients = updatedIngredients;
+      }
+    }
   } catch (err) {
     ingredients.value.splice(ingredientIndex, 0, deletedIngredient);
     error.value = err instanceof api.ApiError ? err.message : "Failed to delete ingredient";

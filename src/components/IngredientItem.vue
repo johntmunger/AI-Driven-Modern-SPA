@@ -120,7 +120,10 @@ onBeforeUnmount(() => {
         class="flex-shrink-0 p-1.5 text-gray-600 hover:text-red-600 bg-white hover:bg-red-50 rounded border border-gray-300 hover:border-red-400 transition-all duration-200 shadow-sm"
         aria-label="Delete ingredient"
         title="Delete"
-        @click.stop="emit('delete', ingredient.id)"
+        @click.stop="
+          console.log('Delete clicked for:', ingredient.id);
+          emit('delete', ingredient.id);
+        "
       >
         <Icon icon="mdi:delete" class="text-base" />
       </button>

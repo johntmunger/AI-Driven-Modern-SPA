@@ -68,7 +68,10 @@ const formatDate = (dateString?: string) => {
   if (diffMins < 1) return "just now";
   if (diffMins < 60) return `${diffMins}m ago`;
   if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
+  if (diffDays === 1) return "yesterday";
+  if (diffDays < 7) return `${diffDays} days ago`;
+  if (diffDays < 14) return "last week";
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
 
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 };
@@ -95,7 +98,10 @@ const formatDate = (dateString?: string) => {
       >
         {{ recipeName }}
       </h2>
-      <span v-if="recipeId && recipeUpdatedAt" class="text-xs text-gray-500 font-normal">
+      <span
+        v-if="recipeId && recipeUpdatedAt"
+        class="text-[10px] sm:text-xs text-gray-500 font-normal"
+      >
         ({{ formatDate(recipeUpdatedAt) }})
       </span>
     </div>

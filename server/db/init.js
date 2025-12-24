@@ -6,14 +6,16 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Database paths
-const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
-let DB_PATH;
+const __dirname = path.dirname(__filename);
 
+// Schema always in code directory
+const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
+
+// Database location: separate from code
+let DB_PATH;
 if (process.env.NODE_ENV === 'production') {
-  // Production: Use persistent disk at /var/data
-  const DISK_PATH = '/var/data';
-  DB_PATH = path.join(DISK_PATH, 'recipes.db');
+  // Production: Use persistent disk (mounted separately from code)
+  DB_PATH = '/var/data/recipes.db';
   console.log(`🌐 Production mode - Using persistent disk: ${DB_PATH}`);
 } else {
   // Development: Use local directory

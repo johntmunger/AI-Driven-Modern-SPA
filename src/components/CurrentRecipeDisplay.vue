@@ -90,8 +90,8 @@ const formatDate = (dateString?: string) => {
         @keydown="handleKeydown"
       />
     </div>
-    <div v-else class="flex-1 flex items-center gap-2 flex-wrap">
-      <Icon icon="mdi:chef-hat" class="text-2xl text-green-700 shrink-0" />
+    <div v-else class="flex-1 flex items-baseline gap-2 flex-wrap">
+      <Icon icon="mdi:chef-hat" class="text-2xl text-green-700 shrink-0 self-center" />
       <h2
         class="text-lg sm:text-xl font-semibold"
         :class="recipeId ? 'text-green-700' : 'text-gray-500'"
